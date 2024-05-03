@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Daily News</string>
+    <string name="app_tagline">News That Impacts Your World Every Day</string>
+
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="author">Author</string>
+    <string name="published_date">Published Date</string>
+    <string name="news_img">News Img</string>
+    <string name="share_button">Share Button</string>
+    <string name="source">Source</string>
+    <string name="content">Content</string>
+    <string name="url">URL</string>
+    <string name="id">Id</string>
+    <string name="name">Name</string>
+    <string name="loading_text">Wait for the Breaking NEWS</string>
+    <string name="new_article_short_description">New Article Short Description</string>
+    <string name="read_more">Read More on Browser</string>
+    <string name="bookmarked_news">Bookmarked News</string>
+    <string name="source_concat">Source: %1$s</string>
+    <string name="watch_later">Article saved to Watch Later</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sort_by">Sort By</string>
+    <string name="new_first">Newest to Oldest</string>
+    <string name="old_first">Oldest to Newest</string>
+    <string name="empty_saved_news">You haven\'t saved anything yet</string>
+    <string name="trending_news">Trending News</string>
+    <string name="saved_news">Watch Later</string>
+    <string name="new_features">New Features</string>
+    <string name="long_touch_item">Long Touch the item to view more details</string>
+    <string name="word_dictionary">Save words in personal dictionary</string>
+    <string name="sentence_dictionary">Save phrases and sentences in for future use</string>
+    <string name="search_news">Search the news from the list</string>
+    <string name="source_categories">News filtered by Source Categories</string>">
+    <string name="written_by">Written By: %1$s</string>
+    <string name="date">Date: %1$s</string>
+
+</resources>

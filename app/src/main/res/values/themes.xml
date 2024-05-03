@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="app.Base.Theme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    </style>
+
+    <style name="app.Theme" parent="app.Base.Theme" />
+
+    <style name="ShapeAppearanceOverlay.App.CornerSize5Percent" parent="">
+        <item name="cornerSize">5%</item>
+    </style>
+  <!-- Base application theme. -->
+    <style name="Base.app.Base.Theme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+</resources>
