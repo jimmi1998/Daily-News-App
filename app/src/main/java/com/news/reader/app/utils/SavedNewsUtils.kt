@@ -8,12 +8,12 @@ import org.json.JSONException
 import org.json.JSONObject
 
 object SavedNewsUtils {
-    private const val SHARED_PREFS_NAME = "SavedNewsPrefs"
-    private const val KEY_SAVED_ARTICLES = "saved_articles"
+    private const val SHAREDPREFSNAME = AppConstants.SHARED_PREFS_NAME
+    private const val KEYSAVEDARTICLES = AppConstants.KEY_SAVED_ARTICLES
 
     fun saveArticle(context: Context, newsArticle: NewsArticle) {
         val sharedPreferences =
-            context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+            context.getSharedPreferences(SHAREDPREFSNAME, Context.MODE_PRIVATE)
         val savedArticles = getSavedArticlesList(context).toMutableList()
 
         if (!savedArticles.contains(newsArticle)) {
@@ -35,22 +35,24 @@ object SavedNewsUtils {
                 jsonObject.put("content", currentArticle.content)
                 jsonArray.put(jsonObject)
             }
-            editor.putString(KEY_SAVED_ARTICLES, jsonArray.toString())
+            editor.putString(KEYSAVEDARTICLES, jsonArray.toString())
             editor.apply()
         }
     }
 
     fun getSavedArticlesList(context: Context): List<NewsArticle> {
         val sharedPreferences =
-            context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
-        val savedArticles = mutableListOf<NewsArticle>()
-        val jsonString = sharedPreferences.getString(KEY_SAVED_ARTICLES, null)
+            context.getSharedPreferences(SHAREDPREFSNAME, Context.MODE_PRIVATE)
+        val savedArticlesList = mutableListOf<NewsArticle>()
+        val jsonString = sharedPreferences.getString(KEYSAVEDARTICLES, null)
 
         if (!jsonString.isNullOrEmpty()) {
             try {
                 val jsonArray = JSONArray(jsonString)
                 for (i in 0 until jsonArray.length()) {
+
                     val jsonObject = jsonArray.getJSONObject(i)
+
                     val sourceId = jsonObject.getString("source_id")
                     val sourceName = jsonObject.getString("source_name")
                     val author = jsonObject.getString("author")
@@ -58,34 +60,34 @@ object SavedNewsUtils {
                     val description = jsonObject.getString("description")
                     val url = jsonObject.getString("url")
                     val imageUrl = jsonObject.getString("imageUrl")
-                    val publishedAt = jsonObject.getString("publishedAt")
+                    val publishedDate = jsonObject.getString("publishedAt")
                     val content = jsonObject.getString("content")
 
                     val source = Source(sourceId, sourceName)
                     val newsArticle = NewsArticle(
                         source,
-                        author,
                         title,
                         description,
-                        url,
                         imageUrl,
-                        publishedAt,
-                        content
+                        author,
+                        publishedDate,
+                        content,
+                        url
                     )
-                    savedArticles.add(newsArticle)
+                    savedArticlesList.add(newsArticle)
                 }
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
         }
 
-        return savedArticles
+        return savedArticlesList
     }
 
 
     fun unSaveArticle(context: Context, newsArticle: NewsArticle) {
         val sharedPreferences =
-            context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+            context.getSharedPreferences(SHAREDPREFSNAME, Context.MODE_PRIVATE)
         val savedArticles = getSavedArticlesList(context).toMutableList()
 
         val iterator = savedArticles.iterator()
@@ -114,7 +116,7 @@ object SavedNewsUtils {
 
             jsonArray.put(jsonObject)
         }
-        editor.putString(KEY_SAVED_ARTICLES, jsonArray.toString())
+        editor.putString(KEYSAVEDARTICLES, jsonArray.toString())
         editor.apply()
     }
 

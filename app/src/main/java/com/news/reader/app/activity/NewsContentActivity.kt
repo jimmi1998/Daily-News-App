@@ -36,8 +36,8 @@ class NewsContentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news_content)
-        articleURL = intent.getStringExtra("ARTICLE_URL").toString()
 
+        articleURL = intent.getStringExtra("ARTICLE_URL").toString()
         articleContent = intent.getStringExtra("ARTICLE_CONTENT").toString()
         articleTitle = intent.getStringExtra("ARTICLE_TITLE").toString()
         articleAuthor = intent.getStringExtra("ARTICLE_AUTHOR").toString()
@@ -80,13 +80,18 @@ class NewsContentActivity : AppCompatActivity() {
             if (SavedNewsUtils.isArticleSaved(this, savedNewsArticle)) {
                 SavedNewsUtils.unSaveArticle(this, savedNewsArticle)
                 savedButton.setImageResource(R.drawable.not_bookmark)
+                Snackbar.make(
+                    findViewById(android.R.id.content),
+                    getString(R.string.unsave_article),
+                    Snackbar.LENGTH_SHORT
+                ).show()
             } else {
                 SavedNewsUtils.saveArticle(this, savedNewsArticle)
                 savedButton.setImageResource(R.drawable.bookmarked)
                 Snackbar.make(
                     findViewById(android.R.id.content),
                     getString(R.string.watch_later),
-                    Snackbar.LENGTH_LONG
+                    Snackbar.LENGTH_SHORT
                 ).show()
             }
         }
@@ -146,6 +151,9 @@ class NewsContentActivity : AppCompatActivity() {
     }
 
     private fun createArticleObject(): NewsArticle {
+        // Create a Source object
+        val sourceObject = Source(newsArticle.source?.id, newsArticle.source?.name)
+
         // Assuming you have these values available in your context
         val title = newsArticle.title
         val author = newsArticle.author
@@ -155,11 +163,18 @@ class NewsContentActivity : AppCompatActivity() {
         val des = newsArticle.description
         val publishedDate = newsArticle.publishedDate
 
-
-        // Create a Source object
-        val sourceObject = Source(newsArticle.source?.id, newsArticle.source?.name)
-
-        // Create an Article object using the gathered data
-        return NewsArticle(sourceObject, author, title, des, url, imageUrl, publishedDate, content)
+        // Created an Article object using the gathered data
+        val newsArticleObject = NewsArticle (
+            sourceObject,
+            title,
+            des,
+            imageUrl,
+            author,
+            publishedDate,
+            content,
+            url
+        )
+        // Returning the Article object created using the gathered data
+        return newsArticleObject
     }
 }

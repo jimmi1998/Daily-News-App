@@ -1,6 +1,7 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <style name="app.Base.Theme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/dark_blue</item>
     </style>
 
     <style name="app.Theme" parent="app.Base.Theme" />
@@ -12,5 +13,6 @@
     <style name="Base.app.Base.Theme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowBackground">@color/dark_blue</item>
     </style>
 </resources>

@@ -18,7 +18,10 @@
     <string name="read_more">Read More on Browser</string>
     <string name="bookmarked_news">Bookmarked News</string>
     <string name="source_concat">Source: %1$s</string>
-    <string name="watch_later">Article saved to Watch Later</string>
+    <string name="watch_later">Article Saved to Watch Later</string>
+    <string name="unsave_article">Article Unsaved from Watch Later</string>
+    <string name="new_articles">Newest Articles First</string>
+    <string name="old_articles">Oldest Articles First</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sort_by">Sort By</string>
@@ -35,5 +38,6 @@
     <string name="source_categories">News filtered by Source Categories</string>">
     <string name="written_by">Written By: %1$s</string>
     <string name="date">Date: %1$s</string>
+    <string name="app_logo">App Logo</string>
 
 </resources>

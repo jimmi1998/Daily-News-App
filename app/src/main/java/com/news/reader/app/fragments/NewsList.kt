@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.news.reader.app.R
 import com.news.reader.app.adapters.NewsArticleAdapter
 import com.news.reader.app.model.NewsArticle
@@ -172,13 +173,29 @@ class NewsList : Fragment() {
             sortByDate(false)
             dialog.dismiss()
             filter.visibility = View.VISIBLE
+            Snackbar.make(
+                requireView(),
+                getString(R.string.new_articles),
+                Snackbar.LENGTH_SHORT
+
+            ).show()
         }
         oldFirst.setOnClickListener {
             sortByDate(true)
             dialog.dismiss()
             filter.visibility = View.VISIBLE
-        }
+            Snackbar.make(
+                requireView(),
+                getString(R.string.old_articles),
+                Snackbar.LENGTH_SHORT
 
+            ).show()
+        }
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(true);
+        dialog.setOnDismissListener {
+            filter.visibility = View.VISIBLE
+        }
         dialog.show()
     }
 

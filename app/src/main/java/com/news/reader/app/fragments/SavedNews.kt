@@ -52,8 +52,6 @@ class SavedNews : Fragment() {
 
         savedArticlesList = SavedNewsUtils.getSavedArticlesList(requireContext()).toMutableList()
 
-
-
         recyclerView = view?.findViewById(R.id.saved_news_recycler_view)!!
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 

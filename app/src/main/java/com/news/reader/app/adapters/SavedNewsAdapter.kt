@@ -21,7 +21,8 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 class SavedNewsAdapter(
-    private val newsArticleList: List<NewsArticle>, private val context: Context,
+    private val newsArticleList: List<NewsArticle>,
+    private val context: Context,
     private val clickListener: OnArticleClickListener // Add the listener in the constructor
 ) : RecyclerView.Adapter<SavedNewsAdapter.NewsArticleViewHolder>() {
 
@@ -31,7 +32,6 @@ class SavedNewsAdapter(
         val author: TextView = itemView.findViewById(R.id.author)
         val source: TextView = itemView.findViewById(R.id.source)
         val publishDate: TextView = itemView.findViewById(R.id.publishDate)
-
         val newsImage: ImageView = itemView.findViewById(R.id.newsImage)
     }
 

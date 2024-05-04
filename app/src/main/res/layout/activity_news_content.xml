@@ -6,7 +6,7 @@
     android:id="@+id/activity_news_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/minty_green1"
     tools:context=".activity.NewsContentActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -21,7 +21,10 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp">
 
             <TextView
                 android:id="@+id/source"
@@ -72,7 +75,7 @@
             android:layout_height="290sp"
             android:scaleType="fitXY"
             android:scrollbarFadeDuration="10"
-            android:padding="4dp"
+            android:padding="5dp"
             android:background="@drawable/news_dummy_image"
             android:contentDescription="@string/news_img"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -87,8 +90,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:orientation="vertical"
-        android:padding="5dp"
-        android:layout_margin="5dp"
+        android:padding="10sp"
+        android:layout_margin="5sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fl_news_image">
@@ -98,8 +101,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/title"
+            android:layout_marginBottom="8sp"
             android:textColor="@color/dark_blue"
-            android:textSize="22sp"
+            android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -112,10 +116,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="8sp"
             android:text="@string/author"
             android:textColor="@color/blue"
-            android:textSize="13sp"
-            android:textStyle="italic"
+            android:textSize="15sp"
+            android:textStyle="bold|italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
@@ -126,8 +131,8 @@
             android:layout_marginTop="5dp"
             android:text="@string/published_date"
             android:textColor="@color/blue"
-            android:textSize="13sp"
-            android:textStyle="italic"
+            android:textSize="15sp"
+            android:textStyle="bold|italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/author" />
     </LinearLayout>
@@ -138,7 +143,11 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="20dp"
-        android:lineSpacingExtra="8dp"
+        android:lineSpacingExtra="6dp"
+        android:padding="10sp"
+        android:layout_margin="5sp"
+        android:ellipsize="end"
+        android:maxLines="5"
         android:text="@string/content"
         android:textColor="@color/dark_green"
         android:textSize="20sp"
@@ -153,7 +162,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/btn_bg"
         android:text="@string/read_more"
-        android:textColor="@color/black"
+        android:padding="20dp"
+        android:textColor="@color/yellow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
