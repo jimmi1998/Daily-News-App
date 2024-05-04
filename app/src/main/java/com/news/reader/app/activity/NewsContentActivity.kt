@@ -32,7 +32,7 @@ class NewsContentActivity : AppCompatActivity() {
     private lateinit var articlePublishDate: String
     private lateinit var newsArticle: NewsArticle
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news_content)
@@ -44,7 +44,12 @@ class NewsContentActivity : AppCompatActivity() {
         articleSource = intent.getStringExtra("ARTICLE_SOURCE").toString()
         imageUrl = intent.getStringExtra("ARTICLE_IMAGE").toString()
         articlePublishDate = intent.getStringExtra("ARTICLE_PUBLISH_DATE").toString()
-        newsArticle = intent.getParcelableExtra("ARTICLE_DATA", NewsArticle::class.java)!!
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            newsArticle = intent.getParcelableExtra("ARTICLE_DATA", NewsArticle::class.java)!!
+        } else {
+            @Suppress("DEPRECATION")
+            newsArticle = (intent.getParcelableExtra("ARTICLE_DATA") as? NewsArticle)!!
+        }
 
         val contentText = findViewById<TextView>(R.id.content)
         val titleText = findViewById<TextView>(R.id.title)
