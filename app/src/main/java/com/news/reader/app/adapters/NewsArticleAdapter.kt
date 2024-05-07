@@ -20,8 +20,6 @@ import com.news.reader.app.R
 import com.news.reader.app.activity.NewsContentActivity
 import com.news.reader.app.model.NewsArticle
 import com.news.reader.app.utils.AppUtils
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class NewsArticleAdapter(
     private val context: Context,
