@@ -18,7 +18,6 @@ tools:context=".activity.NewsMainActivity">
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
-
     <ImageView
         android:id="@+id/app_icon"
         android:layout_width="40dp"
@@ -39,7 +38,6 @@ tools:context=".activity.NewsMainActivity">
         android:textSize="24sp"
         tools:layout_editor_absoluteX="76dp"
         tools:layout_editor_absoluteY="15dp" />
-
 
 </androidx.appcompat.widget.Toolbar>
 

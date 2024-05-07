@@ -19,6 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.news.reader.app.R
 import com.news.reader.app.model.NewsArticle
 import com.news.reader.app.model.Source
+import com.news.reader.app.utils.AppUtils
 import com.news.reader.app.utils.SavedNewsUtils
 
 class NewsContentActivity : AppCompatActivity() {
@@ -43,7 +44,7 @@ class NewsContentActivity : AppCompatActivity() {
         articleAuthor = intent.getStringExtra("ARTICLE_AUTHOR").toString()
         articleSource = intent.getStringExtra("ARTICLE_SOURCE").toString()
         imageUrl = intent.getStringExtra("ARTICLE_IMAGE").toString()
-        articlePublishDate = intent.getStringExtra("ARTICLE_PUBLISH_DATE").toString()
+        articlePublishDate = AppUtils.formatDate(intent.getStringExtra("ARTICLE_PUBLISH_DATE").toString())
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             newsArticle = intent.getParcelableExtra("ARTICLE_DATA", NewsArticle::class.java)!!
         } else {

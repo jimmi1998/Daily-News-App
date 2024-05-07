@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.news.reader.app.R
 import com.news.reader.app.model.NewsArticle
+import com.news.reader.app.utils.AppUtils
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -47,7 +48,7 @@ class SavedNewsAdapter(
         holder.source.text = newsArticle.source?.name ?: context.getString(R.string.source)
         holder.author.text = newsArticle.author ?: context.getString(R.string.author)
         holder.description.text = newsArticle.description ?: context.getString(R.string.new_article_short_description)
-        holder.publishDate.text = formatDate(newsArticle.publishedDate)
+        holder.publishDate.text = AppUtils.formatDate(newsArticle.publishedDate)
 
         newsArticle.imageUrl?.let {
             Glide.with(context)
@@ -88,23 +89,6 @@ class SavedNewsAdapter(
 
     override fun getItemCount(): Int {
         return newsArticleList.size
-    }
-
-    private fun formatDate(dateString: String?): String {
-        return if (dateString.isNullOrEmpty()) {
-            "No date available" // or any other default value you prefer
-        } else {
-            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
-            val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-            try {
-                val date = inputFormat.parse(dateString)
-                date?.let {
-                    outputFormat.format(date)
-                } ?: ""
-            } catch (e: ParseException) {
-                "Invalid date format" // Handle parsing exceptions
-            }
-        }
     }
 
     interface OnArticleClickListener {

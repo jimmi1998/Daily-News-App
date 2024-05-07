@@ -3,6 +3,8 @@ package com.news.reader.app.fragments
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,10 +12,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.news.reader.app.R
 import com.news.reader.app.adapters.NewsArticleAdapter
@@ -37,7 +41,10 @@ class NewsList : Fragment() {
     private lateinit var newsArticleAdapter: NewsArticleAdapter
     private var newsArticlesList = mutableListOf<NewsArticle>()
     private lateinit var filter: View
-    private lateinit var progress_bar: ProgressBar
+    private lateinit var progressBar: ProgressBar
+    private lateinit var sortBy: Array<String>
+    private var selectedPosition = 0
+
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,16 +56,14 @@ class NewsList : Fragment() {
         recyclerView = view.findViewById(R.id.news_list_recycler_View)
         setupRecyclerView(view)
         fetchArticles()
-        progress_bar = view.findViewById(R.id.main_progress_bar)
-        progress_bar.visibility = View.VISIBLE
+
+        progressBar = view.findViewById(R.id.main_progress_bar)
+        progressBar.visibility = View.VISIBLE
 
         filter = view.findViewById(R.id.filter)
         filter.setOnClickListener {
-            showFilters()
+            showFilterDialog()
         }
-
-
-
         return view
     }
 
@@ -75,8 +80,6 @@ class NewsList : Fragment() {
             adapter = newsArticleAdapter
         }
     }
-
-
     private fun fetchArticles() {
         val apiUrl = AppConstants.BASE_URL
 
@@ -88,23 +91,23 @@ class NewsList : Fragment() {
                     newsArticlesList.clear()
                     newsArticlesList.addAll(articles)
                     newsArticleAdapter.notifyDataSetChanged()
-                    progress_bar.visibility = View.GONE
+                    progressBar.visibility = View.GONE
                 }
             } catch (e: IOException) {
                 withContext(Dispatchers.Main) {
                     // Show a system-generated dialog for network error
-                    showSystemDialog("Network Error", "Please check your internet connection.")
-                    progress_bar.visibility = View.GONE
+                    showSystemDialog(getString(R.string.network_error),
+                        getString(R.string.please_check_your_internet_connection))
+                    progressBar.visibility = View.GONE
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     // Handle other exceptions if required
-                    progress_bar.visibility = View.GONE
+                    progressBar.visibility = View.GONE
                 }
             }
         }
     }
-
 
     private fun parseArticles(response: String): List<NewsArticle> {
         val newsArticlesList = mutableListOf<NewsArticle>()
@@ -162,41 +165,45 @@ class NewsList : Fragment() {
         newsArticleAdapter.notifyDataSetChanged()
     }
 
-    private fun showFilters() {
+    private fun showFilterDialog() {
         filter.visibility = View.GONE
-        val dialog = Dialog(requireContext())
-        dialog.setContentView(R.layout.sort_by_filters)
 
-        val newFirst = dialog.findViewById<CardView>(R.id.newest_first)
-        val oldFirst = dialog.findViewById<CardView>(R.id.oldest_first)
-        newFirst.setOnClickListener {
-            sortByDate(false)
-            dialog.dismiss()
-            filter.visibility = View.VISIBLE
-            Snackbar.make(
-                requireView(),
-                getString(R.string.new_articles),
-                Snackbar.LENGTH_SHORT
+        sortBy = resources.getStringArray(R.array.sort_by)
+        var selectedItem = sortBy[selectedPosition]
 
-            ).show()
-        }
-        oldFirst.setOnClickListener {
-            sortByDate(true)
-            dialog.dismiss()
-            filter.visibility = View.VISIBLE
-            Snackbar.make(
-                requireView(),
-                getString(R.string.old_articles),
-                Snackbar.LENGTH_SHORT
+        AlertDialog.Builder(requireContext(), R.style.AlertDialogCustom)
+            .setTitle(R.string.sort_by)
+            .setSingleChoiceItems(sortBy, selectedPosition) { _, which ->
+                selectedPosition = which
+                selectedItem = sortBy[which]
+            }
+            .setPositiveButton(R.string.ok) { _, _ ->
+                when(selectedPosition) {
+                    0 -> sortByDate(false)
+                    1 -> sortByDate(true)
+                    else -> {
+                        sortByDate(false)
+                        selectedItem = sortBy[0]
+                    }
+                }
+                showSnackBar(selectedItem)
+            }
+            .setNegativeButton(R.string.cancel) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setOnDismissListener {
+                filter.visibility = View.VISIBLE
+            }
+            .setCancelable(false)
+            .show()
+    }
 
-            ).show()
-        }
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.setCancelable(true);
-        dialog.setOnDismissListener {
-            filter.visibility = View.VISIBLE
-        }
-        dialog.show()
+    private fun showSnackBar(msg: String){
+        Snackbar.make(
+            requireView(),
+            msg,
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     private fun showSystemDialog(title: String, message: String) {
@@ -209,5 +216,4 @@ class NewsList : Fragment() {
         val dialog = builder.create()
         dialog.show()
     }
-
 }

@@ -22,6 +22,8 @@
     <string name="unsave_article">Article Unsaved from Watch Later</string>
     <string name="new_articles">Newest Articles First</string>
     <string name="old_articles">Oldest Articles First</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sort_by">Sort By</string>
@@ -39,5 +41,7 @@
     <string name="written_by">Written By: %1$s</string>
     <string name="date">Date: %1$s</string>
     <string name="app_logo">App Logo</string>
+    <string name="network_error">Network Error</string>
+    <string name="please_check_your_internet_connection">Please check your internet connection.</string>
 
 </resources>

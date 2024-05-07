@@ -19,6 +19,7 @@ import com.bumptech.glide.request.target.Target
 import com.news.reader.app.R
 import com.news.reader.app.activity.NewsContentActivity
 import com.news.reader.app.model.NewsArticle
+import com.news.reader.app.utils.AppUtils
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -77,7 +78,7 @@ class NewsArticleAdapter(
             description.text = newsArticle.description ?: context.getString(R.string.new_article_short_description)
             author.text = newsArticle.author ?: context.getString(R.string.author)
             source.text = newsArticle.source?.name ?: context.getString(R.string.source)
-            publishDate.text = formatDate(newsArticle.publishedDate)
+            publishDate.text = AppUtils.formatDate(newsArticle.publishedDate)
 
             newsArticle.imageUrl?.let {
                 Glide.with(context)
@@ -119,17 +120,6 @@ class NewsArticleAdapter(
 
         }
 
-        private fun formatDate(dateString: String?): String {
-            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
-            val outputFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
-
-            val date = dateString?.let {
-                inputFormat.parse(it)
-            }
-            return date?.let {
-                outputFormat.format(date)
-            } ?: ""
-        }
     }
 
     interface OnArticleClickListener {
